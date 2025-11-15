@@ -12,6 +12,6 @@ function count(str) {
 }
 
 const x = count("Hello World")
-x;
+
 
 

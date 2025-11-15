@@ -1,5 +1,5 @@
 # 2025-11-10
-[2025-11-09 Challenge](https://www.freecodecamp.org/learn/daily-coding-challenge/2025-11-10)
+[2025-11-10 Challenge](https://www.freecodecamp.org/learn/daily-coding-challenge/2025-11-10)
 ## Instructions
 Extension Extractor
 Given a string representing a filename, return the extension of the file.
