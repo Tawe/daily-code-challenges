@@ -28,3 +28,16 @@ Constraints:
 n == nums.length
 1 <= n <= 1000
 1 <= nums[i] <= 1000
+
+## My Thoughts
+
+This problem was intentionally simple, but it’s a good reminder that not every coding challenge needs a clever trick. My first instinct was the straightforward one, loop through the array and push each element twice. But in JavaScript, the spread operator gives you a much cleaner and more expressive way to do this.
+
+The question almost feels like a warm-up: take an array, duplicate it, return the result. No hidden edge cases, no pitfalls, and the constraints are tiny. It’s more about recognizing that sometimes the obvious solution really is the correct one.
+
+## What I Learned
+
+- JavaScript’s spread operator (...) makes array concatenation incredibly simple and readable.
+- Problems like this reinforce the value of leaning on the language’s built-in features instead of overthinking the implementation.
+- Even very easy problems are useful: they help you practice translating a requirement into a minimal, idiomatic expression.
+- The optimal solution runs in O(n) time and O(n) extra space, which is perfect for the constraints.
