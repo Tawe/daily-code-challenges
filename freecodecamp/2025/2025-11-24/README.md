@@ -14,6 +14,6 @@ Words in the message are separated by single spaces.
 
 This problem looked straightforward at first: split the message into words, split the validator into letters, and compare the first character of each word. But once I tested the example with "dog.", I realized the challenge wasn’t just checking letters, it was handling punctuation and case sensitivity correctly. The message contains a trailing period, and without cleaning that up, the validation behaves inconsistently. The logic itself was solid; the tricky part was preparing the data properly before validating.
 
-##What I Learned
+## What I Learned
 
 I learned that input preprocessing is crucial. Even when a problem seems simple, real-world text often contains punctuation or formatting you need to normalize. Stripping non-alphabetic characters before validating ensures consistency and avoids subtle edge cases. I also reinforced the habit of lowering case early, checking lengths first to avoid unnecessary loops, and writing clear comparisons between corresponding positions. This challenge reminded me that correctness often depends as much on clean data as on correct logic.
