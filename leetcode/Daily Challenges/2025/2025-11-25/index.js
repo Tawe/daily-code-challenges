@@ -1,17 +1,11 @@
 var smallestRepunitDivByK = function(k) {
-    let num = ""
-    if(k % 2 === 0 || k % 5 === 0){
-        return -1
-    }
+    let r = 0;
     for (let length = 1; length <= k; length++) {
-        num = num+1;
-        if(k % num === 0){
-            num;
-            return true
-        }
+        r = (r * 10 + 1) % k;
+        if (r === 0) return length;
     }
-    
+    return -1;
 };
 
-const x = smallestRepunitDivByK(2);
+const x = smallestRepunitDivByK(3);
 x;
