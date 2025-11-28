@@ -1,7 +1,7 @@
 function compare(secret, guess) {
   const n = secret.length;
   const result = Array(n).fill("0");
-
+    
   const freq = {};
   for (let i = 0; i < n; i++) {
     const ch = secret[i];
