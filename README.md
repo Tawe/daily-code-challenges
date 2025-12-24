@@ -36,4 +36,4 @@ Navigate to any platform directory to view challenges and solutions for that pla
 
 - Repository Start Date: November 7, 2025
 - Platforms: 2
-- Total Challenges: TBD
+- Total Challenges: 12
