@@ -4,5 +4,5 @@ function fuelToAdd(currentGallons, requiredLiters) {
     return Math.ceil((requiredLiters - currentGallons * GALLON_TO_LITERS) / GALLON_TO_LITERS);
 }
 
-const x = fuelToAdd(0, 1);
+const x = fuelToAdd(5, 40);
 x;

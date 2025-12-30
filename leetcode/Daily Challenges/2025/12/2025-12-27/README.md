@@ -1,4 +1,4 @@
-2025-12-26
+2025-12-27
 
 ## Instructions
 You are given an integer n. There are n rooms numbered from 0 to n - 1.
