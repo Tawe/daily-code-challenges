@@ -1,3 +1,5 @@
+# Q1. Set Mismatch
+
 ## Instructions
 
 You have a set of integers s, which originally contains all the numbers from 1 to n. Unfortunately, due to some error, one of the numbers in s got duplicated to another number in the set, which results in repetition of one number and loss of another number.
@@ -6,13 +8,13 @@ You are given an integer array nums representing the data status of this set aft
 
 Find the number that occurs twice and the number that is missing and return them in the form of an array.
 
- 
-```yaml
-Example 1:
+
+```
+### Example 1:
 
 Input: nums = [1,2,2,4]
 Output: [2,3]
-Example 2:
+### Example 2:
 
 Input: nums = [1,1]
 Output: [1,2]
@@ -23,7 +25,10 @@ Constraints:
 2 <= nums.length <= 104
 1 <= nums[i] <= 104
 
+```
+
 ## My Thoughts
+
 At first, this problem looked straightforward: find the duplicate and find the missing number. My instinct was to check whether each index matched the value it “should” have and treat mismatches as the missing value. That made sense for a sorted array, but I quickly realized the input isn’t guaranteed to be sorted, which makes index-based comparison unreliable.
 
 I also reached for a simple .filter() + indexOf() approach to detect duplicates, which worked on small tests but had hidden inefficiencies. Side by side, the overall solution felt a bit fragile, and edge cases made it clear that I wasn’t capturing the true structure of the problem.

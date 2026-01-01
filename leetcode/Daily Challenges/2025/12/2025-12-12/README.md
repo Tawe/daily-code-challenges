@@ -1,6 +1,7 @@
 # 2025-12-12
 
 ## Instructions
+
 You are given an integer numberOfUsers representing the total number of users and an array events of size n x 3.
 
 Each events[i] can be either of the following two types:
@@ -19,7 +20,7 @@ All users are initially online, and if a user goes offline or comes back online,
 
 Note that a user can be mentioned multiple times in a single message event, and each mention should be counted separately.
 
-```yaml
+```
 Example 1:
 
 Input: numberOfUsers = 2, events = [["MESSAGE","10","id1 id0"],["OFFLINE","11","0"],["MESSAGE","71","HERE"]]
@@ -71,18 +72,14 @@ It is guaranteed that the user id referenced in the OFFLINE event is online at t
 ## My Thoughts
 
 This problem looked like a straightforward simulation at first: track who’s online, process events in timestamp order, and count mentions based on the message type. With small constraints, it felt safe to lean into a direct, readable approach instead of optimizing prematurely.
-
 My initial solution almost worked, which is always the most dangerous place to be. The logic handled OFFLINE events, MESSAGE ordering, and even same-timestamp precedence correctly. But a subtle assumption slipped in: I only brought users back online when their return time exactly matched a timestamp where an event existed.
-
 That assumption was wrong.
-
 Users can return online at times where nothing happens. Their status still changes, and future HERE messages must reflect that. The failing test case made this painfully clear: a user returned at time 74, but the next event wasn’t until time 83, so they were incorrectly treated as offline.
-
 The fix wasn’t complicated, but the lesson was important. Instead of checking for equality, I needed to treat time as continuous, if a user’s return time is less than or equal to the current event time, they must already be back online.
-
 This was a classic simulation bug: the model was correct, but the timeline was discretized incorrectly.
 
 ## What I Learned
+
 - State changes can happen between events.
 Just because nothing is logged at a timestamp doesn’t mean nothing changes. Time-based simulations must account for implicit transitions.
 - Equality checks are often a smell in time simulations.

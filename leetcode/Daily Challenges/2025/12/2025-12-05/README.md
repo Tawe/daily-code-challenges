@@ -1,6 +1,7 @@
 # 2025-12-05
 
 ## Instructions
+
 You are given an integer array nums of length n.
 
 A partition is defined as an index i where 0 <= i < n - 1, splitting the array into two non-empty subarrays such that:
@@ -9,8 +10,7 @@ Left subarray contains indices [0, i].
 Right subarray contains indices [i + 1, n - 1].
 Return the number of partitions where the difference between the sum of the left and right subarrays is even.
 
- 
-```yaml
+```
 Example 1:
 Input: nums = [10,10,3,7,6]
 Output: 4
@@ -33,7 +33,6 @@ Output: 3
 Explanation:
 All partitions result in an even sum difference.
 ```
- 
 
 Constraints:
 2 <= n == nums.length <= 100
@@ -42,16 +41,11 @@ Constraints:
 ## My Thoughts
 
 When I first read the problem, my instinct was to reach for prefix sums and manually simulate each partition. It felt like one of those tasks where you accumulate a running left sum, compute the right sum from the total, and then check the parity for every split. And while that approach would work, something felt suspicious about how simple the examples were. Problems that revolve around “even vs odd” differences often hide a parity shortcut.
-
 Once I wrote out the expression for the difference explicitly, everything clicked. The problem frames the difference as leftSum - rightSum, but substituting rightSum = total - leftSum reveals a much cleaner structure:
-
 `diff = 2 * leftSum - total`
-
 This was the entire puzzle.
 2 * leftSum is always even. That means the parity of the final difference is determined solely by the parity of total. If total is odd, no partition can ever produce an even difference. If total is even, every partition will produce an even difference.
-
 I didn’t need prefix sums at all. I didn’t even need to inspect individual indices. The entire problem collapses to a single check on the total sum. Once I saw that, the “optimal solution” went from a full loop with running state to a three-line function.
-
 It was a reminder that whenever a question involves “even or odd,” the fastest path is often not math but parity reasoning—reduce the expression and see what actually controls the parity.
 
 ## What I Learned

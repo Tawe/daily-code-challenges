@@ -1,13 +1,14 @@
 # 2025-12-15
 
 ## Instructions
+
 You are given an integer array prices representing the daily price history of a stock, where prices[i] is the stock price on the ith day.
 
 A smooth descent period of a stock consists of one or more contiguous days such that the price on each day is lower than the price on the preceding day by exactly 1. The first day of the period is exempted from this rule.
 
 Return the number of smooth descent periods.
 
-```yaml
+```
 Example 1:
 Input: prices = [3,2,1,4]
 Output: 7
@@ -35,14 +36,12 @@ Constraints:
 ## My Thoughts
 
 At first, this problem felt like it might require checking every possible subarray, which would be far too slow given the constraints. The phrase “one or more contiguous days” immediately suggests a lot of combinations, and it’s easy to drift toward a brute-force mindset.
-
 The key realization was that the rule is very strict: prices must decrease by exactly 1 each day. That restriction turns the problem from a general subarray problem into a run-counting problem. As soon as the difference between two days isn’t exactly one, the current smooth descent period is broken.
-
 Once I reframed the problem in terms of tracking the length of the current descent run, everything simplified. Each day contributes as many valid periods as the length of the run ending on that day. Summing those contributions across the array gives the total count without ever enumerating subarrays explicitly.
-
 What initially looked combinatorial ended up being a simple linear scan with a running counter.
 
 ## What I Learned
+
 - Strict conditions often simplify problems.
 Requiring a difference of exactly 1 removes most possible cases and creates clear “runs” in the data.
 - Counting subarrays doesn’t always require nested loops.

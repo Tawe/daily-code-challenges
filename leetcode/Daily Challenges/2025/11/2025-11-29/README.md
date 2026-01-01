@@ -1,12 +1,13 @@
 # 2025-11-29
 
 ## Instructions
+
 You are given an integer array nums and an integer k. You can perform the following operation any number of times:
 
 - Select an index i and replace nums[i] with nums[i] - 1.
 - Return the minimum number of operations required to make the sum of the array divisible by k.
 
-```yaml
+```
 Example 1:
 
 Input: nums = [3,9,7], k = 5
@@ -47,14 +48,12 @@ Constraints:
 1 <= k <= 100
 
 ## My Thoughts
+
 At first the problem looked like it might require manipulating individual elements, distributing operations across the array, or dealing with constraints on specific numbers. But once I stepped back and looked at what the operation actually does, the whole challenge simplified dramatically.
-
 Every time I subtract 1 from any element, the total sum decreases by exactly 1. That means the only thing that matters is how far the current sum is from the nearest multiple of k — and since I'm only allowed to go down, I always move toward the next multiple below the sum.
-
 So the real question becomes:
 How many steps until the sum is divisible by k?
 And the answer is simply the remainder: sum % k.
-
 It ended up being much cleaner than I expected.
 
 ## What I Learned

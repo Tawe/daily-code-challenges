@@ -1,6 +1,7 @@
 # 2025-11-18
 
 ## Instructions
+
 1-bit and 2-bit Characters
 
 We have two special characters:
@@ -20,22 +21,18 @@ Input: bits = [1,1,1,0]
 Output: false
 Explanation: The only way to decode it is two-bit character and two-bit character.
 So the last character is not one-bit character.
- 
 
 Constraints:
 
 1 <= bits.length <= 1000
 bits[i] is either 0 or 1.
 
-
 ## My Thoughts
-This problem looks ridiculously simple at first glance — it’s literally just zeros and ones. My first instinct was to check the second-last bit:
 
+This problem looks ridiculously simple at first glance — it’s literally just zeros and ones. My first instinct was to check the second-last bit:
 - if it’s 1, the last 0 must be part of a 10;
 - if it’s 0, the last 0 must stand alone.
-
 But that approach falls apart the moment you test real inputs. The decoding isn’t determined by just the last two bits; it’s determined by how the entire sequence groups together according to the “1-bit vs 2-bit” rules. That makes this problem a lot more subtle than it looks.
-
 The key realization is that you can’t shortcut decoding: a 1 always pulls the next bit with it, and those groupings can shift depending on what came before. Once you see that, the final bit depends on whether the decoding process naturally “lands” on it or skips over it. That insight makes the problem more predictable, and far more interesting, than I expected.
 
 ## What I Learned

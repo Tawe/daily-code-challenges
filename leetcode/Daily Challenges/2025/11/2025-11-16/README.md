@@ -1,9 +1,8 @@
 # 2025-11-16
 
 ## Instructions
-Given a binary string s, return the number of substrings with all characters 1's. Since the answer may be too large, return it modulo 109 + 7.
 
- 
+Given a binary string s, return the number of substrings with all characters 1's. Since the answer may be too large, return it modulo 109 + 7.
 
 Example 1:
 
@@ -23,7 +22,6 @@ Example 3:
 Input: s = "111111"
 Output: 21
 Explanation: Each substring contains only 1's characters.
- 
 
 Constraints:
 
@@ -33,7 +31,6 @@ s[i] is either '0' or '1'.
 ## My Thoughts
 
 At first this problem looked like it required some heavy substring work, but once I stepped back and thought about what actually creates an all-1 substring, the whole thing became much simpler. Every time you extend a run of consecutive 1s, you automatically create a predictable number of new substrings — no slicing, no nested loops, no brute force.
-
 The key was realizing I didn’t have to track actual substrings at all. I just needed to know how long the current streak of 1s was. Adding the streak value every time I saw a '1' gives the total count for that position. This turns the whole problem into a single clean pass over the string.
 
 ## What I Learned

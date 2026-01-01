@@ -1,16 +1,15 @@
 # 2025-11-18
 [2025-11-18 Challenge](https://www.freecodecamp.org/learn/daily-coding-challenge/2025-11-18)
+
 ## Instructions
+
 100 Characters
 Welcome to the 100th Daily Coding Challenge!
-
 Given a string, repeat its characters until the result is exactly 100 characters long. If your repetitions go over 100 characters, trim the extra so it's exactly 100.
 
 ## My Thoughts
 
-This one seemed simple on the surface, but I caught myself overthinking the “looping” part. My first instinct was to run a while-loop and decrement a counter, but that didn’t actually help me build the final string. I kept trying to find a clever way to append characters one at a time, but that approach was both messy and inefficient.
-
-The real breakthrough was realizing that the challenge isn’t about characters at all, it’s about repeating a pattern until you hit a specific length. Once I reframed the problem that way, repeating the entire string became the obvious strategy. I didn’t need to handle individual characters or track some loop counter. I just needed to generate a long enough string and slice it to exactly 100 characters.
+This one seemed simple on the surface, but I caught myself overthinking the “looping” part. My first instinct was to run a while-loop and decrement a counter, but that didn’t actually help me build the final string. I kept trying to find a clever way to append characters one at a time, but that approach was both messy and inefficient. The real breakthrough was realizing that the challenge isn’t about characters at all, it’s about repeating a pattern until you hit a specific length. Once I reframed the problem that way, repeating the entire string became the obvious strategy. I didn’t need to handle individual characters or track some loop counter. I just needed to generate a long enough string and slice it to exactly 100 characters.
 
 ## What I Learned
 

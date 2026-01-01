@@ -1,42 +1,20 @@
 # 2025-12-03
 [2025-12-03 Challenge](https://www.freecodecamp.org/learn/daily-coding-challenge/2025-12-03)
 
+## Instructions
 
-## Instructions.
-Markdown Ordered List Item Converter
-Given a string representing an ordered list item in Markdown, return the equivalent HTML string.
 
-A valid ordered list item in Markdown must:
-
-Start with zero or more spaces, followed by
-A number (1 or greater) and a period (.), followed by
-At least one space, and then
-The list item text.
-If the string doesn't have the exact format above, return "Invalid format". Otherwise, wrap the list item text in li tags and return the string.
-
-For example, given "1. My item", return "<li>My item</li>"
-
-Note: The console may not display HTML tags in strings when logging messages. Check the browser console to see logs with tags included.
 
 ## My Thoughts
 
-This challenge looked simple at first just convert a Markdown list item into HTML but as I worked through it, I realized how many subtle rules are baked into Markdown formatting. My initial solution passed the basic example and worked for the general case, but when I revisited the detailed requirements, I noticed several important edge cases I hadn’t accounted for.
-
-My regex matched only a number, a dot, and a space at the beginning of the string. It didn’t accommodate optional leading spaces, it allowed numbers like “0.” even though the spec says “1 or greater,” and it didn’t enforce that actual text must appear after the space. In other words—it worked, but it wasn’t fully correct for strict validation.
-
-This was a good reminder that regex problems often have hidden complexity, and solving them well means slowing down and translating every rule in the prompt into an explicit condition. “Close enough” works for real-world UX, but not for a challenge where correctness is literal.
+This challenge looked simple at first just convert a Markdown list item into HTML but as I worked through it, I realized how many subtle rules are baked into Markdown formatting. My initial solution passed the basic example and worked for the general case, but when I revisited the detailed requirements, I noticed several important edge cases I hadn’t accounted for. My regex matched only a number, a dot, and a space at the beginning of the string. It didn’t accommodate optional leading spaces, it allowed numbers like “0.” even though the spec says “1 or greater,” and it didn’t enforce that actual text must appear after the space. In other words—it worked, but it wasn’t fully correct for strict validation. This was a good reminder that regex problems often have hidden complexity, and solving them well means slowing down and translating every rule in the prompt into an explicit condition. “Close enough” works for real-world UX, but not for a challenge where correctness is literal.
 
 ## What I Learned
 
 - Specs matter more than assumptions.
 The instructions explicitly allow leading spaces and require numbers ≥ 1. My first attempt missed those details. Reading specs more carefully leads to better solutions.
 - Regex should reflect all rules, not just the obvious ones.
-When a problem says “exact format,” each bullet point usually deserves its own thought:
-    - Leading spaces?
-    - Number range?
-    - Period required?
-    - At least one space after the period?
-    - Must contain text after that space?
+When a problem says “exact format,” each bullet point usually deserves its own thought: - Leading spaces? - Number range? - Period required? - At least one space after the period? - Must contain text after that space?
 Each one maps directly to part of the regex.
 - Validating input often means validating the entire string.
 - Using ^...$ ensures you're not just matching a prefix—you’re enforcing full structure.

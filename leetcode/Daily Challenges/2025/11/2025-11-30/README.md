@@ -1,14 +1,14 @@
 # 2025-11-30
 
 ## Instructions
+
 Given an array of positive integers nums, remove the smallest subarray (possibly empty) such that the sum of the remaining elements is divisible by p. It is not allowed to remove the whole array.
 
 Return the length of the smallest subarray that you need to remove, or -1 if it's impossible.
 
 A subarray is defined as a contiguous block of elements in the array.
 
- 
-```yaml
+```
 Example 1:
 Input: nums = [3,1,4,2], p = 6
 Output: 1
@@ -34,14 +34,12 @@ Constraints:
 ## My Thoughts
 
 This problem looked like a brute-force sliding window at first, but once I framed it in terms of modulo math, it completely changed. The challenge isn’t about scanning every possible subarray, it’s about finding a subarray whose sum has the exact remainder needed to “fix” the total sum.
-
 The prefix-sum trick made the problem click: the subarray I remove is just the difference between two prefix sums. That gave me a way to rewrite the problem into “match the right modular value.”
-
 The part that tripped me up was the detail of storing prefix mods in the hashmap. I initially kept the earliest index for each modulo value, but that actually forces longer subarrays. The correct way — storing the latest index, gives shorter subarrays because I'm shrinking the distance i - j, not expanding it.
-
 Once I understood that piece, everything fell into place.
 
 ## What I Learned
+
 - Removing a subarray with a specific remainder % p is the key to making the total divisible by p.
 - Prefix sums let you compute any subarray’s sum by subtraction, and the modular version of that subtraction works exactly the same.
 - The equation to find a matching prefix mod is:

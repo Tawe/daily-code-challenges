@@ -1,6 +1,7 @@
 # 2025-11-21
 
 ## Instructions
+
 Given a string s, return the number of unique palindromes of length three that are a subsequence of s.
 
 Note that even if there are multiple ways to obtain the same subsequence, it is still only counted once.
@@ -10,8 +11,8 @@ A palindrome is a string that reads the same forwards and backwards.
 A subsequence of a string is a new string generated from the original string with some characters (can be none) deleted without changing the relative order of the remaining characters.
 
 For example, "ace" is a subsequence of "abcde".
- 
-```yaml
+
+```
 Example 1:
 
 Input: s = "aabca"
@@ -44,10 +45,10 @@ s consists of only lowercase English letters.
 ## My Thoughts
 
 This problem seemed intimidating at first because “palindromic subsequences” sounds like something that would require backtracking or dynamic programming. But once I realized that every palindrome of length three has the structure x-y-x, the entire problem simplified. The key insight is that the outer characters must match, and any character that appears between their first and last occurrence can serve as the middle letter. That perspective transforms the problem from “find subsequences” into “analyze position ranges.”
-
 My first approach was messier than it needed to be—I tried building palindromes from combinations of letters, but that didn't properly enforce ordering or uniqueness. Once I shifted to a letter-by-letter strategy (checking each possible outer character and looking inside its range), the logic became much cleaner and matched exactly what the problem required.
 
 ## What I Learned
+
 - A length-3 palindrome has only one structure: x y x, so the heart of the problem is identifying possible outer characters and then counting distinct middle characters.
 - Subsequence problems often look complex until you reduce them to positional constraints; “first occurrence” and “last occurrence” end up being more powerful than brute-force combinations.
 - Using a fixed alphabet (a–z) means you can loop 26 times with predictable work—this turns what looks like an O(n²) problem into O(n).

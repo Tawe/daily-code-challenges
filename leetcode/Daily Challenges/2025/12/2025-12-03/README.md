@@ -1,13 +1,14 @@
 # 2025-12-03
 
 ## Instructions
+
 You are given a 2D integer array points where points[i] = [xi, yi] represents the coordinates of the ith point on the Cartesian plane.
 
 Return the number of unique trapezoids that can be formed by choosing any four distinct points from points.
 
 A trapezoid is a convex quadrilateral with at least one pair of parallel sides. Two lines are parallel if and only if they have the same slope.
 
-```yaml
+```
 Example 1:
 Input: points = [[-3,2],[3,0],[2,3],[3,2],[2,-3]]
 Output: 2
@@ -30,12 +31,10 @@ Constraints:
 All points are pairwise distinct.
 
 ## My Thoughts
+
 This problem looked at first like a geometry heavy challenge, especially with terms like “quadrilaterals,” “parallel sides,” and “trapezoids.” But once I broke it down, the real structure became clear: everything depends on pairs of points, not full shapes.
-
 Parallel sides can be counted by grouping segments with the same slope. Parallelograms can be detected by grouping segments with the same midpoint. That reduces the entire shape-counting problem to a combinatorics problem on pairs—no need to manually handle quadrilaterals at all.
-
 The tricky part was realizing that midpoint grouping also counts degenerate cases (four collinear points). Those aren’t valid quadrilaterals, so subtracting them was necessary to avoid underflow or negative results.
-
 Once I separated real parallelograms from degenerate ones, the solution became clean and efficient.
 
 ## What I Learned

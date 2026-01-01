@@ -8,12 +8,14 @@ freeCodeCamp is a non-profit organization that offers free coding education thro
 
 ## Structure
 
-Each challenge will be organized by topic or certification path as I work through them.
+Each challenge is organized by date and includes:
+- Challenge solution file (`index.js`)
+- README with problem description and solution notes
 
 ## Progress
 
 - Start Date: November 7, 2025
-- Current Focus: TBD
+- Total Challenges: 55 (as of December 31, 2025)
 
 ## Resources
 

@@ -1,9 +1,10 @@
 # 2025-11-23
 
 ## Instructions
+
 Given an integer array nums, return the maximum possible sum of elements of the array such that it is divisible by three.
 
-```yaml
+```
 Example 1:
 Input: nums = [3,6,5,1,8]
 Output: 18
@@ -28,11 +29,10 @@ Constraints:
 ## My Thoughts
 
 I started this problem by assuming I needed to “pick the right numbers,” but that turned out to be the wrong perspective. My first attempt was to sort the array and repeatedly subtract the smallest numbers until the total became divisible by 3. It felt intuitive, but the more I thought about it, the more it seemed off, I was removing numbers without understanding why they mattered. That approach actually breaks in several cases, because the optimal subset to remove is not always the smallest prefix of the sorted array.
-
 Once I stepped back and reframed the problem as “make the sum divisible by 3 with the smallest possible sacrifice,” everything clicked. The remainder of a number modulo 3 ended up being the key structure in the problem, and suddenly there was no need for guesswork or iteration, just classify the numbers by remainder and remove the smallest offending pieces.
 
-
 ## What I Learned
+
 - The optimal solution doesn’t involve choosing which numbers to keep, it involves removing the smallest amount needed to fix the total sum.
 - Every number becomes completely defined by num % 3, and the entire problem can be solved by grouping numbers into remainder classes (0, 1, 2).
 - To fix sum % 3, I never need to remove more than two numbers:

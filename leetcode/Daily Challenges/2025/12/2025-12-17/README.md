@@ -1,6 +1,7 @@
 # 2025-12-17
 
 ## Instructions
+
 You are given an integer array prices where prices[i] is the price of a stock in dollars on the ith day, and an integer k.
 
 You are allowed to make at most k transactions, where each transaction can be either of the following:
@@ -13,7 +14,7 @@ Note that you must complete each transaction before starting another. Additional
 
 Return the maximum total profit you can earn by making at most k transactions.
 
-```yaml
+```
 Example 1:
 Input: prices = [1,7,9,8,2], k = 2
 Output: 14
@@ -41,12 +42,11 @@ Constraints:
 ## My Thoughts
 
 At first, this problem looked like a standard “buy and sell stock with at most k transactions” question, but the addition of short selling fundamentally changed how I had to think about it. Greedy approaches or simple peak-valley logic immediately fell apart once both upward and downward price movements could be exploited.
-
 What helped was reframing the problem away from “buy and sell” and toward state management over time. Once I stopped thinking in terms of individual trades and instead modeled what I’m currently holding (nothing, a long position, or a short position), the solution became much clearer.
-
 This also forced me to be precise about when a transaction actually counts. Opening a position doesn’t complete a transaction, only closing it does. That detail mattered a lot for keeping the transaction limit correct.
 
 ## What I Learned
+
 - Allowing both long and short trades turns this into a state-machine DP problem, not a greedy one.
 - It’s useful to separate:
     - Opening a position (does not consume a transaction)

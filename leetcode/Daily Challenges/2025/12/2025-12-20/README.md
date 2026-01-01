@@ -1,6 +1,8 @@
- 2025-12-20
+# 2025-12-20
 
 ## Instructions
+
+
 You are given an array of n strings strs, all of the same length.
 
 The strings can be arranged such that there is one on each line, making a grid.
@@ -16,8 +18,7 @@ You want to delete the columns that are not sorted lexicographically. In the abo
 
 Return the number of columns that you will delete.
 
- 
-```yaml
+```
 Example 1:
 Input: strs = ["cba","daf","ghi"]
 Output: 1
@@ -55,12 +56,11 @@ strs[i] consists of lowercase English letters.
 ## My Thoughts
 
 At first, this problem felt like it might require rearranging strings or sorting data in a more complex way. However, once I visualized the input as a grid of characters, the task became much clearer. Each column is independent, and the only thing that matters is whether the characters in that column are already in non-decreasing order from top to bottom.
-
 Instead of trying to manipulate the strings or rebuild the grid, I focused on scanning column by column and comparing each character with the one directly above it. The moment a character breaks lexicographic order, that column can be marked for deletion and skipped.
-
 This shift from thinking “string problem” to “grid scan problem” simplified both the logic and the implementation.
 
 ## What I Learned
+
 - Many string problems become easier when visualized as a 2D grid.
 - Independent columns or rows can often be evaluated separately without extra data structures.
 - Early exits (breaking as soon as a violation is found) improve clarity and efficiency.

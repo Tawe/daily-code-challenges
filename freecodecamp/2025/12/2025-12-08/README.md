@@ -1,25 +1,13 @@
 # 2025-12-08
 [2025-12-08 Challenge](https://www.freecodecamp.org/learn/daily-coding-challenge/2025-12-08)
 
-## Instructions.
-Pounds to Kilograms
-Given a weight in pounds as a number, return the string "(lbs) pounds equals (kgs) kilograms.".
+## Instructions
 
-Replace "(lbs)" with the input number.
-Replace "(kgs)" with the input converted to kilograms, rounded to two decimals and always include two decimal places in the value.
-1 pound equals 0.453592 kilograms.
-If the input is 1, use "pound" instead of "pounds".
-If the converted value is 1, use "kilogram" instead of "kilograms".
+
 
 ## My Thoughts
 
-This challenge looked trivial on the surface—just convert pounds to kilograms and return a nicely formatted string. But as I worked through it, I realized there were several subtle rules hiding inside what appeared to be a simple formatting problem.
-
-My initial solution handled the basic math and singular vs. plural forms for “pound,” but it didn’t fully follow the specification. I overlooked two important details: rounding to exactly two decimal places and always displaying exactly two digits after the decimal. Also, the pluralization rule applied to both units, not just pounds. The more I examined the prompt, the more it became clear that most of the complexity wasn’t in the arithmetic at all—it was in faithfully respecting all the edge cases of language and formatting.
-
-This exercise was a good reminder that coding problems often blend logic with presentation rules, and the formatting rules can be just as important as the math. It’s easy to mentally skip details that feel “small,” but they’re often the ones that test careful reading and precision.
-
-What looked like a two line problem ended up being a discipline exercise in slowing down, checking each requirement, and making sure every one of them makes it into the solution.
+This challenge looked trivial on the surface—just convert pounds to kilograms and return a nicely formatted string. But as I worked through it, I realized there were several subtle rules hiding inside what appeared to be a simple formatting problem. My initial solution handled the basic math and singular vs. plural forms for “pound,” but it didn’t fully follow the specification. I overlooked two important details: rounding to exactly two decimal places and always displaying exactly two digits after the decimal. Also, the pluralization rule applied to both units, not just pounds. The more I examined the prompt, the more it became clear that most of the complexity wasn’t in the arithmetic at all—it was in faithfully respecting all the edge cases of language and formatting. This exercise was a good reminder that coding problems often blend logic with presentation rules, and the formatting rules can be just as important as the math. It’s easy to mentally skip details that feel “small,” but they’re often the ones that test careful reading and precision. What looked like a two line problem ended up being a discipline exercise in slowing down, checking each requirement, and making sure every one of them makes it into the solution.
 
 ## What I Learned
 

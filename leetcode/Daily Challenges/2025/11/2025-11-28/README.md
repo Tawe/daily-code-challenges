@@ -1,6 +1,7 @@
 # 2025-11-28
 
 ## Instructions
+
 There is an undirected tree with n nodes labeled from 0 to n - 1. You are given the integer n and a 2D integer array edges of length n - 1, where edges[i] = [ai, bi] indicates that there is an edge between nodes ai and bi in the tree.
 
 You are also given a 0-indexed integer array values of length n, where values[i] is the value associated with the ith node, and an integer k.
@@ -9,8 +10,7 @@ A valid split of the tree is obtained by removing any set of edges, possibly emp
 
 Return the maximum number of components in any valid split.
 
- 
-```yaml
+```
 Example 1:
 Input: n = 5, edges = [[0,2],[1,2],[1,3],[2,4]], values = [1,8,1,4,4], k = 6
 Output: 2
@@ -44,11 +44,9 @@ The input is generated such that edges represents a valid tree.
 ## My Thoughts
 
 This problem felt confusing at first because it mixes trees, sums, and modular arithmetic, and the examples don’t make the idea obvious. What finally helped was realizing that I didn’t need to “guess cuts” or simulate different splits. Instead, every valid cut is determined entirely by whether a group of connected nodes adds up to a multiple of k. Once I saw that, the problem became more structured: treat the tree like a rooted hierarchy and evaluate each subtree from the bottom up.
-
 A subtree whose sum is divisible by k naturally becomes one component, and removing it doesn’t interfere with the rest of the tree because you’re essentially peeling off valid layers one by one. That turned the problem from something that felt combinatorial into something predictable and rule-based.
 
 ## What I Learned
 
 I learned that modular arithmetic can simplify tree problems dramatically. Instead of tracking full sums, reducing values modulo k keeps numbers small and still preserves all the information needed to check divisibility. I also learned that on trees, bottom-up DFS is incredibly powerful, the logic becomes simple because every subtree can be evaluated independently and passed upward.
-
 What initially looked like a complex splitting problem is actually “count how many subtrees have sums divisible by k,” and each such subtree corresponds to a valid component. This was a good reminder that tree problems often become clearer once rooted and processed post-order, and that thinking in terms of subtrees instead of edges can reveal the core pattern much faster.

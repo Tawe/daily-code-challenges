@@ -1,6 +1,7 @@
 # 2025-12-13
 
 ## Instructions
+
 You are given three arrays of length n that describe the properties of n coupons: code, businessLine, and isActive. The ith coupon has:
 
 code[i]: a string representing the coupon identifier.
@@ -13,7 +14,7 @@ A coupon is considered valid if all of the following conditions hold:
 - isActive[i] is true.
 Return an array of the codes of all valid coupons, sorted first by their businessLine in the order: "electronics", "grocery", "pharmacy", "restaurant", and then by code in lexicographical (ascending) order within each category.
 
-```yaml
+```
 Example 1:
 
 Input: code = ["SAVE20","","PHARMA5","SAVE@20"], businessLine = ["restaurant","grocery","pharmacy","restaurant"], isActive = [true,true,true,true]
@@ -42,20 +43,16 @@ n == code.length == businessLine.length == isActive.length
 code[i] and businessLine[i] consist of printable ASCII characters.
 isActive[i] is either true or false.
 
-
 ## My Thoughts
 
 This problem felt straightforward at first: filter invalid coupons, then sort the remaining ones by business line and code. The validation rules were explicit, and with small constraints, a direct approach made sense.
-
 Where things got interesting was the sorting. My initial solution used localeCompare, which is usually the “right” tool when comparing strings in JavaScript. The logic passed most test cases, which made the failure especially frustrating, everything looked correct.
-
 The failing test case exposed an assumption I didn’t realize I was making: that “lexicographical order” in the problem statement meant locale-aware string ordering. It doesn’t. The problem expects strict ASCII / code-unit ordering, where uppercase letters always come before lowercase ones.
-
 Once I replaced localeCompare with direct < and > comparisons, the issue disappeared. The algorithm itself was fine, the bug was purely about how JavaScript defines “string comparison” by default.
-
 This was a great reminder that correctness isn’t just about logic and data structures. Language details matter, especially when problems expect a very precise definition of ordering.
 
 ## What I Learned
+
 - Lexicographical order ≠ locale-aware order.
 When a problem says “lexicographical,” it usually means raw character code comparison, not natural-language collation.
 - localeCompare can betray expectations in coding challenges.

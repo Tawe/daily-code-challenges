@@ -1,6 +1,7 @@
 # 2025-12-16
 
 ## Instructions
+
 You are given an integer n, representing the number of employees in a company. Each employee is assigned a unique ID from 1 to n, and employee 1 is the CEO. You are given two 1-based integer arrays, present and future, each of length n, where:
 
 present[i] represents the current price at which the ith employee can buy a stock today.
@@ -17,8 +18,8 @@ Note:
 
 You may buy each stock at most once.
 You cannot use any profit earned from future stock prices to fund additional investments and must buy only from budget.
- 
-```yaml
+
+```
 Example 1:
 Input: n = 2, present = [1,2], future = [4,3], hierarchy = [[1,2]], budget = 3
 Output: 5
@@ -66,18 +67,16 @@ ui != vi
 There are no duplicate edges.
 Employee 1 is the direct or indirect boss of every employee.
 The input graph hierarchy is guaranteed to have no cycles.
- 
+
 ## My Thoughts
 
 This problem was a big step up from the usual greedy or single-pass challenges. At first glance it looks like a stock-picking problem, but the hierarchy and discount rule completely break any simple “pick the most profitable stocks” strategy. Whether an employee is cheap to buy depends on a decision made higher up the tree, which means local choices ripple downward.
-
 The moment I recognized the hierarchy as a tree, the problem started to make more sense. Each employee’s decision only affects their direct reports, which suggests a bottom-up approach. The discount rule effectively creates two states for every node: whether the parent bought their stock or not.
-
 From there, it became clear this was a tree DP combined with knapsack. For each employee, I needed to know the best profit achievable for every possible budget, under both parent states. Merging children felt intimidating at first, but thinking of it as repeatedly combining knapsack tables made it manageable.
-
 This was a great example of a problem where the solution is less about clever tricks and more about choosing the right abstraction. Once the two states per node were explicit, the rest followed logically.
 
 ## What I Learned
+
 - Hierarchy problems often mean tree DP.
 When decisions propagate from parent to child but not sideways, a tree structure is usually hiding underneath.
 - Discounts introduce state.

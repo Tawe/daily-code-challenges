@@ -35,5 +35,7 @@ Navigate to any platform directory to view challenges and solutions for that pla
 ## Progress
 
 - Repository Start Date: November 7, 2025
-- Platforms: 2
-- Total Challenges: 12
+- Platforms: 2 (freeCodeCamp, LeetCode)
+- Total Challenges: 110 (as of January 1, 2026)
+  - freeCodeCamp: 56 daily challenges
+  - LeetCode: 54 challenges (53 daily + 1 quest)

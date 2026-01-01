@@ -1,6 +1,7 @@
 # 2025-12-18
 
 ## Instructions
+
 You are given two integer arrays prices and strategy, where:
 - prices[i] is the price of a given stock on the ith day.
 - strategy[i] represents a trading action on the ith day, where:
@@ -20,8 +21,7 @@ Return the maximum possible profit you can achieve.
 
 Note: There are no constraints on budget or stock ownership, so all buy and sell operations are feasible regardless of past actions.
 
- 
-```yaml
+```
 Example 1:
 Input: prices = [4,2,8], strategy = [-1,0,1], k = 2
 Output: 10
@@ -42,7 +42,7 @@ Modify [0, 1]	[0, 1, 0]	(0 × 5) + (1 × 4) + (0 × 3) = 0 + 4 + 0	4
 Modify [1, 2]	[1, 0, 1]	(1 × 5) + (0 × 4) + (1 × 3) = 5 + 0 + 3	8
 Thus, the maximum possible profit is 9, which is achieved without any modification.
 ```
- 
+
 Constraints:
 
 2 <= prices.length == strategy.length <= 105
@@ -54,14 +54,12 @@ k is even
 ## My Thoughts
 
 At first glance, this problem looks like a classic stock trading question, which made it tempting to think in terms of buy/sell constraints or dynamic programming over transactions. However, reading more carefully, there are no ownership or budget constraints at all. That completely changes the nature of the problem.
-
 Once I reframed the problem as maximizing a simple dot product between prices and strategy, it became clear that the only real challenge was understanding how the one allowed modification affects the total profit.
-
 Instead of recalculating the entire profit for every possible window, I focused on how a modification changes the profit relative to the original strategy. That led naturally to computing a delta for each valid window and choosing the best one.
-
 The fixed structure of the modification—first half to 0, second half to 1—made the math predictable and suitable for prefix sums, which turned what would be an O(n·k) brute-force solution into a clean O(n) sliding-window approach.
 
 ## What I Learned
+
 - Not all “stock” problems are about transaction constraints—sometimes they reduce to pure arithmetic.
 - Carefully reading the rules (especially “no constraints on ownership”) can completely change the solution approach.
 - Thinking in terms of delta from a baseline is often more powerful than recomputing totals from scratch.

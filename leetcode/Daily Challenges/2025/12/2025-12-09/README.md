@@ -1,6 +1,7 @@
 # 2025-12-09
 
 ## Instructions
+
 You are given an integer array nums.
 
 A special triplet is defined as a triplet of indices (i, j, k) such that:
@@ -12,8 +13,7 @@ Return the total number of special triplets in the array.
 
 Since the answer may be large, return it modulo 109 + 7.
 
- 
-```yaml
+```
 Example 1:
 Input: nums = [6,3,6]
 Output: 1
@@ -82,6 +82,7 @@ giving an O(n) solution with excellent cache locality.
 This problem turned into a good reminder that speed in algorithms often comes from observing symmetry and roles within a triple. Here, j is special, once that became clear, the solution fell into place.
 
 ## What I Learned
+
 - Fixing the middle index simplifies 3-way relationships.
 Instead of thinking in (i, j, k), treat j as the pivot. That turns a 3-dimensional search into two independent 1-dimensional counts.
 - Many “triplet counting” problems reduce to frequency maps.

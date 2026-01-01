@@ -1,12 +1,12 @@
 # 2025-11-22
 
 ## Instructions
+
 You are given an integer array nums. In one operation, you can add or subtract 1 from any element of nums.
 
 Return the minimum number of operations to make all elements of nums divisible by 3.
 
- 
-```yaml
+```
 Example 1:
 
 Input: nums = [1,2,3,4]
@@ -26,18 +26,15 @@ Input: nums = [3,6,9]
 
 Output: 0
 ```
- 
 
 Constraints:
 
 1 <= nums.length <= 50
 1 <= nums[i] <= 50
 
-
 ## My Thoughts
 
 At first, I overcomplicated the problem by trying to figure out whether each number needed to go “up” or “down” to reach the nearest multiple of 3. I kept thinking in terms of looking at neighbors, subtracting and adding, and checking which is closer. But once I stepped back, I realized that the modulo operation already encodes all the distance information I needed.
-
 The problem looks like a number-manipulation puzzle, but it’s really a remainder puzzle. Every number fits cleanly into one of three buckets, and each bucket has a predictable cost. Once I saw that pattern, the solution became almost trivial.
 
 ## What I Learned
