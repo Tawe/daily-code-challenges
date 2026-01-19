@@ -18,3 +18,15 @@ A1	B1	C1	D1	E1	F1	G1	H1
 A knight moves in an "L" shape: two squares in one direction (horizontal or vertical), and one square in the perpendicular direction.
 
 This means a knight can move to up to eight possible positions, but fewer when near the edges of the board. For example, if a knight was at A1, it could only move to B3 or C2.
+
+## My Thoughts
+
+This one was really about translating a “real world” representation (like "C2") into something I could do math with. Once I turned the column letter and row number into 0-based coordinates, the rest was just checking the knight’s 8 possible L-shaped offsets and counting which ones stay inside the board.
+
+The nice part is that this problem is naturally constant-time. No matter where the knight is, you only ever consider the same 8 moves, and the only difference is how many of those moves stay in bounds near the edges.
+
+## What I Learned
+	•	Converting from a labeled grid (A–H / 1–8) into numeric coordinates makes movement problems much simpler.
+	•	Knights always have the same 8 candidate moves; the only logic needed is bounds checking.
+	•	When the set of possibilities is fixed (like “8 moves”), the solution is O(1) and doesn’t need fancy optimization.
+	•	Using a small list of movement deltas is a reusable pattern for grid-based problems (knights, kings, adjacency checks, etc.).
