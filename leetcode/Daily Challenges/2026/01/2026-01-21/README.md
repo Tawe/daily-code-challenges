@@ -32,3 +32,26 @@ Constraints:
 1 <= nums.length <= 100
 2 <= nums[i] <= 109
 nums[i] is a prime number.
+
+## My Thoughts
+
+This problem was tricky at first because it introduces an output array (ans) that doesn’t exist yet and asks me to construct it using a bitwise condition. That made it feel abstract, especially since the condition involved ans[i] | (ans[i] + 1), which isn’t something I’d normally think about.
+
+At the beginning, brute force made the most sense. Trying values for x and checking (x | (x + 1)) helped me see real patterns instead of guessing. That’s when I noticed that the result is always an odd number, which immediately explained why some primes (like 2) can never work.
+
+Once I started thinking in binary, things became clearer. Adding 1 to a number flips its trailing 1s to 0s and turns the next 0 into a 1. The OR operation then “restores” all those flipped bits back to 1. That insight made it obvious why this problem works at all.
+
+After that, the goal shifted from finding any valid number to finding the smallest one. I realized that the minimal solution comes from carefully removing exactly one bit from the trailing block of 1s in the target number. That lets x | (x + 1) rebuild the original value.
+
+The optimized version didn’t feel like a shortcut, it felt like a natural result of understanding the binary behavior properly. Once I understood the pattern, I didn’t need to search anymore.
+
+## What I Learned
+	•	ans is not provided it’s an array I must construct.
+	•	ans[i] and ans[i] + 1 are just two consecutive integers.
+	•	The bitwise OR (|) works per bit, keeping a 1 if either number has it.
+	•	(x | (x + 1)) is always odd, so even targets are impossible.
+	•	Brute force is useful for discovering patterns, not just solving the problem.
+	•	Binary carry behavior (when adding 1) is key to understanding this problem.
+	•	Trailing 1s in binary determine where a valid solution can exist.
+	•	Minimizing ans[i] means removing the highest bit in the trailing 1 block.
+	•	Bitwise problems become much easier once you stop thinking in decimal.
