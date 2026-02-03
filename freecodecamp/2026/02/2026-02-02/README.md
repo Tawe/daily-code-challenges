@@ -1,4 +1,4 @@
-# 2026-21-02
+# 2026-02-02
 [2026-02-02 Challenge](https://www.freecodecamp.org/learn/daily-coding-challenge/2026-02-02)
 
 ## Instructions

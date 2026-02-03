@@ -40,22 +40,27 @@ k - 2 <= dist <= n - 2
 
 ## My Thoughts
 
-This problem initially felt more complicated than it actually was because it talked about splitting the array into three contiguous subarrays. My first instinct was to think about all possible split points and maybe even dynamic programming or nested loops to try every combination.
+This one looked like the earlier “split into 3 subarrays” problem, but the dist constraint changes everything. The key realization is that I’m not just picking the cheapest starting values anywhere, I’m picking k − 1 start indices (for subarrays 2 through k) that must all fit inside a sliding window of width dist + 1, and the window is anchored by the start of the second subarray (i1).
 
-What tripped me up at first was over-focusing on the subarrays themselves instead of what the problem actually defines as “cost.” Once I slowed down and really read the definition, the cost of a subarray is just its first element, the problem started to simplify dramatically.
+That “anchored” part is what makes it tricky:
+	•	When I choose i1 (start of the 2nd subarray), that index must be included in the cost.
+	•	Then I need to choose the remaining k − 2 start indices from the next dist positions: i1 + 1 ... i1 + dist.
 
-The key realization was that the first subarray will always start at index 0, so its cost is fixed as nums[0]. That means the only decisions that matter are where the second and third subarrays start. And since the total cost only depends on those starting values, all I really need are the two smallest numbers from the rest of the array.
+So the true cost shape is:
 
-At that point, the problem went from “array partitioning” to “find two minimum values,” which made everything click.
+nums[0] + nums[i1] + (sum of the smallest k−2 values in nums[i1+1 .. i1+dist])
 
-This was a good reminder that many problems are about identifying what doesn’t matter just as much as what does.
+Your Python approach (two heaps + lazy deletion) is the right kind of tool for speed, because it’s basically maintaining “k-smallest in a sliding window” efficiently.
 
+But your specific implementation doesn’t match the anchored requirement, it starts with nums[1 : dist+2] and picks k−1 smallest from that window, which accidentally allows the solution to skip nums[i1], even though i1 must always be part of the cost.
+
+That’s why it “didn’t work”: it’s optimizing a slightly different problem than the one described.
 
 ## What I Learned
-	•	The “cost” of a subarray is only its first element, not its sum.
-	•	The first subarray always starts at index 0, so nums[0] is unavoidable and fixed.
-	•	Any valid split into 3 contiguous subarrays boils down to choosing two starting indices after index 0.
-	•	To minimize the total cost, you just need the two smallest values from nums[1:].
-	•	Contiguous constraints don’t matter here once you realize ordering is preserved automatically.
-	•	Reading the problem definition carefully can eliminate unnecessary complexity.
-	•	Some problems look like DP or brute force at first but collapse into a greedy solution once the core rule is understood.
+	•	The split points (starts of subarrays) are the real decision variables, not the subarrays themselves.
+	•	The dist rule doesn’t just limit “how far apart things can be”, it forces the kth start to be close to the 2nd start, meaning my choices live inside a sliding window.
+	•	The biggest trick: the start of the second subarray (i1) is mandatory, so I can’t just take the k−1 smallest values in a window — I must take:
+	•	the value at i1, plus
+	•	the smallest k−2 values in the rest of the window (i1+1 ... i1+dist)
+	•	Two-heaps + lazy deletion is a powerful pattern for “sliding window + k smallest”, but correctness depends on defining the window and required elements exactly right.
+	•	Performance-wise, this is a good lesson in why naive nested loops blow up at n = 1e5, and why you need data structures (heaps / multisets) to keep the update per shift near log n.
