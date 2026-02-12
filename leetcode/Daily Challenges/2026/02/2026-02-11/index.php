@@ -1,5 +1,66 @@
 <?php
 class Solution {
+    private $sum = [];
+    private $minPref = [];
+    private $maxPref = [];
+    private $n = 0;
+
+    private function update($node, $l, $r, $idx, $val) {
+        if ($l === $r) {
+            $this->sum[$node] = $val;
+            $this->minPref[$node] = $val;
+            $this->maxPref[$node] = $val;
+            return;
+        }
+        $mid = intdiv($l + $r, 2);
+        $left = $node * 2;
+        $right = $left + 1;
+        if ($idx <= $mid) {
+            $this->update($left, $l, $mid, $idx, $val);
+        } else {
+            $this->update($right, $mid + 1, $r, $idx, $val);
+        }
+        $sumLeft = $this->sum[$left];
+        $sumRight = $this->sum[$right];
+        $this->sum[$node] = $sumLeft + $sumRight;
+        $this->minPref[$node] = min($this->minPref[$left], $sumLeft + $this->minPref[$right]);
+        $this->maxPref[$node] = max($this->maxPref[$left], $sumLeft + $this->maxPref[$right]);
+    }
+
+    private function queryFirst($node, $l, $r, $ql, $qr, $base, $target) {
+        if ($r < $ql || $l > $qr) {
+            return -1;
+        }
+
+        if ($ql <= $l && $r <= $qr) {
+            if ($target < $base + $this->minPref[$node] || $target > $base + $this->maxPref[$node]) {
+                return -1;
+            }
+            if ($l === $r) {
+                return $l;
+            }
+            $mid = intdiv($l + $r, 2);
+            $left = $node * 2;
+            $right = $left + 1;
+
+            if ($target >= $base + $this->minPref[$left] && $target <= $base + $this->maxPref[$left]) {
+                $res = $this->queryFirst($left, $l, $mid, $ql, $qr, $base, $target);
+                if ($res !== -1) {
+                    return $res;
+                }
+            }
+            return $this->queryFirst($right, $mid + 1, $r, $ql, $qr, $base + $this->sum[$left], $target);
+        }
+
+        $mid = intdiv($l + $r, 2);
+        $left = $node * 2;
+        $right = $left + 1;
+        $res = $this->queryFirst($left, $l, $mid, $ql, $qr, $base, $target);
+        if ($res !== -1) {
+            return $res;
+        }
+        return $this->queryFirst($right, $mid + 1, $r, $ql, $qr, $base + $this->sum[$left], $target);
+    }
 
     /**
      * @param Integer[] $nums
@@ -11,89 +72,11 @@ class Solution {
             return 0;
         }
 
-        $blockSize = (int)floor(sqrt($n)) + 1;
-        $numBlocks = (int)ceil($n / $blockSize);
-
-        $diff = array_fill(0, $n, 0);
-        $blockLazy = array_fill(0, $numBlocks, 0);
-        $blockMap = array_fill(0, $numBlocks, []);
-
-        // Build initial maps (all zeros).
-        for ($b = 0; $b < $numBlocks; $b++) {
-            $start = $b * $blockSize;
-            if ($start >= $n) {
-                break;
-            }
-            $blockMap[$b][0] = $start;
-        }
-
-        $rebuildBlock = function($b) use (&$diff, &$blockMap, $blockSize, $n) {
-            $start = $b * $blockSize;
-            $end = min($n - 1, ($b + 1) * $blockSize - 1);
-            $map = [];
-            for ($i = $start; $i <= $end; $i++) {
-                $val = $diff[$i];
-                if (!array_key_exists($val, $map)) {
-                    $map[$val] = $i;
-                }
-            }
-            $blockMap[$b] = $map;
-        };
-
-        $pushLazy = function($b) use (&$diff, &$blockLazy, $blockSize, $n, $rebuildBlock) {
-            $delta = $blockLazy[$b];
-            if ($delta === 0) {
-                return;
-            }
-            $start = $b * $blockSize;
-            $end = min($n - 1, ($b + 1) * $blockSize - 1);
-            for ($i = $start; $i <= $end; $i++) {
-                $diff[$i] += $delta;
-            }
-            $blockLazy[$b] = 0;
-            $rebuildBlock($b);
-        };
-
-        $rangeAddPrefix = function($pos, $delta) use (
-            &$blockLazy, &$diff, $blockSize, $n, $rebuildBlock, $pushLazy
-        ) {
-            if ($pos < 0) {
-                return;
-            }
-            $endBlock = intdiv($pos, $blockSize);
-            for ($b = 0; $b < $endBlock; $b++) {
-                $blockLazy[$b] += $delta;
-            }
-            // Partial block at end.
-            $pushLazy($endBlock);
-            $start = $endBlock * $blockSize;
-            for ($i = $start; $i <= $pos; $i++) {
-                $diff[$i] += $delta;
-            }
-            $rebuildBlock($endBlock);
-        };
-
-        $findLeftmostZero = function($R) use (&$blockLazy, &$blockMap, &$diff, $blockSize, $n) {
-            if ($R < 0) {
-                return null;
-            }
-            $endBlock = intdiv($R, $blockSize);
-            for ($b = 0; $b < $endBlock; $b++) {
-                $target = -$blockLazy[$b];
-                if (array_key_exists($target, $blockMap[$b])) {
-                    return $blockMap[$b][$target];
-                }
-            }
-            // Scan within the last (partial) block.
-            $start = $endBlock * $blockSize;
-            $lazy = $blockLazy[$endBlock];
-            for ($i = $start; $i <= $R; $i++) {
-                if ($diff[$i] + $lazy === 0) {
-                    return $i;
-                }
-            }
-            return null;
-        };
+        $this->n = $n;
+        $size = 4 * $n + 5;
+        $this->sum = array_fill(0, $size, 0);
+        $this->minPref = array_fill(0, $size, 0);
+        $this->maxPref = array_fill(0, $size, 0);
 
         $last = [];
         $ans = 0;
@@ -102,22 +85,26 @@ class Solution {
             $val = $nums[$r];
             $sign = ($val % 2 === 0) ? 1 : -1;
 
-            $old = array_key_exists($val, $last) ? $last[$val] : -1;
+            $old = $last[$val] ?? -1;
             if ($old >= 0) {
-                $rangeAddPrefix($old, -$sign);
+                $this->update(1, 0, $n - 1, $old, 0);
             }
-            $rangeAddPrefix($r, $sign);
+            $this->update(1, 0, $n - 1, $r, $sign);
             $last[$val] = $r;
 
-            $l = $findLeftmostZero($r);
-            if ($l !== null) {
-                $ans = max($ans, $r - $l + 1);
+            $total = $this->sum[1];
+            if ($total === 0) {
+                $ans = max($ans, $r + 1);
+            }
+
+            if ($r > 0) {
+                $idx = $this->queryFirst(1, 0, $n - 1, 0, $r - 1, 0, $total);
+                if ($idx !== -1) {
+                    $ans = max($ans, $r - $idx);
+                }
             }
         }
 
         return $ans;
     }
 }
-
-$solution = new Solution();
-echo $solution->longestBalanced([2, 5, 4, 3]) . "\n";
