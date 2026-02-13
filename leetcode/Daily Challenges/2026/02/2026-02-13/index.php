@@ -13,7 +13,6 @@ class Solution {
 
         $best = 1;
 
-        // Case 1: substring contains only one distinct character.
         $run = 1;
         for ($i = 1; $i < $n; $i++) {
             if ($s[$i] === $s[$i - 1]) {
@@ -26,7 +25,6 @@ class Solution {
             }
         }
 
-        // Case 2: all three characters appear equally often.
         $countA = 0;
         $countB = 0;
         $countC = 0;
@@ -53,7 +51,6 @@ class Solution {
             }
         }
 
-        // Case 3: exactly two characters appear, with equal counts.
         $best = max($best, $this->longestTwoCharBalanced($s, 'a', 'b', 'c'));
         $best = max($best, $this->longestTwoCharBalanced($s, 'a', 'c', 'b'));
         $best = max($best, $this->longestTwoCharBalanced($s, 'b', 'c', 'a'));
@@ -72,7 +69,6 @@ class Solution {
             $ch = $s[$i];
 
             if ($ch === $forbidden) {
-                // Reset state because forbidden char cannot be inside the substring.
                 $diff = 0;
                 $firstSeen = [0 => $i];
                 $segmentStart = $i + 1;
@@ -87,7 +83,6 @@ class Solution {
 
             if (array_key_exists($diff, $firstSeen)) {
                 $startIdx = $firstSeen[$diff] + 1;
-                // Ensure both characters appear at least once.
                 if ($startIdx >= $segmentStart && $startIdx <= $i) {
                     $len = $i - $firstSeen[$diff];
                     if ($len > $best) {
