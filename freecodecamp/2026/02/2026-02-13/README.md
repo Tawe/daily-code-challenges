@@ -2,6 +2,7 @@
 [2026-02-13 Challenge](https://www.freecodecamp.org/learn/daily-coding-challenge/2026-02-13)
 
 ## Instructions
+
 2026 Winter Games Day 8: Luge
 Given an array of times (in seconds) for each track segment, calculate the speed for each segment and return which segment had the fastest speed.
 
