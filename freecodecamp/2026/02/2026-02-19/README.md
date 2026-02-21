@@ -2,13 +2,12 @@
 [2026-02-19 Challenge](https://www.freecodecamp.org/learn/daily-coding-challenge/2026-02-19)
 
 ## Instructions
+
 2026 Winter Games Day 14: Ski Mountaineering
 Given the snow depth and slope of a mountain, determine if there's an avalanche risk.
-
 The snow depth values are "Shallow", "Moderate", or "Deep".
 Slope values are "Gentle", "Steep", or "Very Steep".
 Return "Safe" or "Risky" based on this table:
-
 "Shallow"	"Moderate"	"Deep"
 "Gentle"	"Safe"	"Safe"	"Safe"
 "Steep"	"Safe"	"Risky"	"Risky"
@@ -16,13 +15,9 @@ Return "Safe" or "Risky" based on this table:
 
 ## My Thoughts
 
-The table collapses to a simple rule:
-
-- If slope is `"Gentle"`, outcome is always `"Safe"`
+The table collapses to a simple rule: - If slope is `"Gentle"`, outcome is always `"Safe"`
 - If snow depth is `"Shallow"`, outcome is always `"Safe"`
-- Everything else is `"Risky"`
-
-So I implemented it as one boolean expression:
+- Everything else is `"Risky"` So I implemented it as one boolean expression:
 `slope === "Gentle" || snowDepth === "Shallow" ? "Safe" : "Risky"`
 
 ## What I Learned
