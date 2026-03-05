@@ -1,13 +1,20 @@
 def count_perfect_cubes(a, b):
-    if a > b:
-        a, b = b, a
+    lo, hi = min(a, b), max(a, b)
     count = 0
-    for i in range(a, b + 1):
-        if is_perfect_cube(i):
+    k = 0
+    while k * k * k <= hi:
+        if k * k * k >= lo:
             count += 1
+        k += 1
+    k = -1
+    while k * k * k >= lo:
+        if k * k * k <= hi:
+            count += 1
+        k -= 1
     return count
 
-def is_perfect_cube(n):
-    return int(n ** (1/3)) ** 3 == n
 
-print(count_perfect_cubes(1, 10)) 
+if __name__ == "__main__":
+    print(count_perfect_cubes(1, 10))
+    print(count_perfect_cubes(10, 1)) 
+    print(count_perfect_cubes(0, 27)) 
