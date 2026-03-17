@@ -63,21 +63,17 @@ func maxStability(n int, edges [][]int, k int) int {
 		return true
 	}
 
-	// Precheck: mandatory edges must not form a cycle
 	dsuMust := newDSU(n)
 	for _, e := range mustEdges {
 		if !union(dsuMust, e.u, e.v) {
-			// cycle formed by mandatory edges -> impossible
 			return -1
 		}
 	}
 
-	// Helper to check if we can achieve stability >= x
 	check := func(x int) bool {
 		dsu := newDSU(n)
 		components := n
 
-		// Add mandatory edges: they must all have strength >= x
 		for _, e := range mustEdges {
 			if e.s < x {
 				return false
@@ -87,7 +83,6 @@ func maxStability(n int, edges [][]int, k int) int {
 			}
 		}
 
-		// First, use optional edges that already meet threshold without upgrade
 		for _, e := range optEdges {
 			if e.s >= x {
 				if union(dsu, e.u, e.v) {
@@ -96,7 +91,6 @@ func maxStability(n int, edges [][]int, k int) int {
 			}
 		}
 
-		// Then, use optional edges that can reach threshold only via upgrade
 		upgradesUsed := 0
 		for _, e := range optEdges {
 			if e.s < x && 2*e.s >= x {
@@ -113,7 +107,6 @@ func maxStability(n int, edges [][]int, k int) int {
 		return components == 1 && upgradesUsed <= k
 	}
 
-	// Binary search for maximum stability
 	lo, hi := 0, maxS*2
 	if !check(0) {
 		return -1

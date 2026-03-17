@@ -5,7 +5,7 @@ import (
 	"strings"
 )
 
-function getHappyString(n: number, k: number): string {
+func getHappyString(n int, k int) string {
 	total := 3
 	for i := 0; i < n-1; i++ {
 		total *= 2

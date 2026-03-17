@@ -14,22 +14,16 @@ func getBiggestThree(grid [][]int) []int {
 
 	distinct := make(map[int]struct{})
 
-	// Area-0 rhombuses: each single cell.
 	for r := 0; r < m; r++ {
 		for c := 0; c < n; c++ {
 			distinct[grid[r][c]] = struct{}{}
 		}
 	}
 
-	// Larger rhombuses defined by top vertex (r, c) and size s.
 	for r := 0; r < m; r++ {
 		for c := 0; c < n; c++ {
 			for s := 1; ; s++ {
-				// Check bounds for all four vertices:
-				// top:    (r, c)
-				// right:  (r+s, c+s)
-				// bottom: (r+2s, c)
-				// left:   (r+s, c-s)
+			
 				if r+2*s >= m || c-s < 0 || c+s >= n {
 					break
 				}
@@ -37,28 +31,23 @@ func getBiggestThree(grid [][]int) []int {
 				sum := 0
 				x, y := r, c
 
-				// down-right side
 				for i := 0; i < s; i++ {
 					x++
 					y++
 					sum += grid[x][y]
 				}
-
-				// down-left side
 				for i := 0; i < s; i++ {
 					x++
 					y--
 					sum += grid[x][y]
 				}
 
-				// up-left side
 				for i := 0; i < s; i++ {
 					x--
 					y--
 					sum += grid[x][y]
 				}
 
-				// up-right side (this last step returns to (r, c))
 				for i := 0; i < s; i++ {
 					x--
 					y++

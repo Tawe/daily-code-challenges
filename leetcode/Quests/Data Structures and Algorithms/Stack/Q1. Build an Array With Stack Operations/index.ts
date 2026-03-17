@@ -6,7 +6,7 @@ function buildArray(target: number[], n: number): string[] {
             stack.push("Pop");
         } 
     }
-    return stack.filter(item => item !== "Pop");
+    return stack
 };
 
 const x = buildArray([1,3], 3);

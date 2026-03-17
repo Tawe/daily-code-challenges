@@ -32,14 +32,11 @@ func modPow(a, b int64) int64 {
 	return res
 }
 
-// modInverse returns x such that (a*x) % MOD == 1 (for prime MOD)
 func modInverse(a int64) int64 {
 	return modPow(a, MOD-2)
 }
 
 func (f *Fancy) Append(val int) {
-	// Store x so that (x * mult + add) % MOD == val
-	// x = (val - add) * mult^(-1)
 	v := int64(val)
 	x := (v - f.add + MOD) % MOD
 	x = (x * modInverse(f.mult)) % MOD
