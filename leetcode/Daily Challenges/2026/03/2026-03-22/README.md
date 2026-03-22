@@ -26,3 +26,35 @@ Given two `n x n` binary matrices `mat` and `target`, return `true` _if i
 - `n == mat[i].length == target[i].length`
 - `1 <= n <= 10`
 - `mat[i][j]` and `target[i][j]` are either `0` or `1`.
+
+## My Thoughts
+
+There are only 4 possible orientations of `mat`:
+
+- original
+- rotated 90 degrees
+- rotated 180 degrees
+- rotated 270 degrees
+
+So the simplest solution is:
+
+- compare `mat` with `target`
+- if they are not equal, rotate `mat` 90 degrees clockwise
+- repeat up to 4 times
+
+I split that into two helpers:
+
+- `isSame` to compare two matrices cell by cell
+- `rotate` to build the next rotated matrix
+
+Because `n <= 10`, this direct simulation is clean and more than fast enough.
+
+Time complexity: `O(4 * n^2)`, which simplifies to `O(n^2)`  
+Space complexity: `O(n^2)` for the rotated matrix
+
+## What I Learned
+
+- When the number of possible transformations is tiny and fixed, brute-force checking all cases is often the best solution.
+- Separating “transform” and “compare” into helpers keeps the main logic easy to read.
+- Clockwise matrix rotation follows a standard index mapping: `new[j][n-1-i] = old[i][j]`.
+- Small constraints often reward straightforward code over premature optimization.
