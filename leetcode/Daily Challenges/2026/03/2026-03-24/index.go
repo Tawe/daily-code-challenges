@@ -8,7 +8,6 @@ func constructProductMatrix(grid [][]int) [][]int {
 	m := len(grid[0])
 	total := n * m
 
-	// Flatten grid so we can do "product except self" with prefix/suffix products.
 	flat := make([]int, 0, total)
 	for i := 0; i < n; i++ {
 		for j := 0; j < m; j++ {
@@ -16,8 +15,8 @@ func constructProductMatrix(grid [][]int) [][]int {
 		}
 	}
 
-	left := make([]int, total)  // product of elements before i
-	right := make([]int, total) // product of elements after i
+	left := make([]int, total)
+	right := make([]int, total)
 
 	left[0] = 1
 	for i := 1; i < total; i++ {
