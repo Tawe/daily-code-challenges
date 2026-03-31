@@ -28,7 +28,6 @@ func generateString(str1 string, str2 string) string {
 		}
 	}
 
-	// Start from lexicographically smallest baseline.
 	for i := 0; i < L; i++ {
 		if word[i] == '?' {
 			word[i] = 'a'
