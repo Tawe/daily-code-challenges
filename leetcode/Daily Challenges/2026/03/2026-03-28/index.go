@@ -64,7 +64,6 @@ func findTheString(lcp [][]int) string {
 		}
 	}
 
-	// lcp[i][j] > 0 iff word[i] == word[j]; transitivity: same DSU component ⇒ lcp[i][j] > 0 for i != j.
 	for i := 0; i < n; i++ {
 		for j := 0; j < n; j++ {
 			if i == j {
@@ -78,7 +77,7 @@ func findTheString(lcp [][]int) string {
 		}
 	}
 
-	rootChar := make([]byte, n) // 0 = unassigned
+	rootChar := make([]byte, n)
 	for i := 0; i < n; i++ {
 		r := find(i)
 		if rootChar[r] != 0 {

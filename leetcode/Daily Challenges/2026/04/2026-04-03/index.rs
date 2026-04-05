@@ -61,7 +61,6 @@ impl Solution {
     }
 }
 
-/// First index `i` with `walls[i] >= x` (like Python bisect_left).
 fn lower_bound(walls: &[i32], x: i32) -> usize {
     walls.partition_point(|&w| w < x)
 }
