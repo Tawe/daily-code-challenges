@@ -1,3 +1,6 @@
+# 2026-04-04
+
+## Instructions
 A string originalText is encoded using a slanted transposition cipher to a string encodedText with the help of a matrix having a fixed number of rows rows.
 
 originalText is placed first in a top-left to bottom-right manner.
@@ -48,3 +51,29 @@ encodedText consists of lowercase English letters and ' ' only.
 encodedText is a valid encoding of some originalText that does not have trailing spaces.
 1 <= rows <= 1000
 The testcases are generated such that there is only one possible originalText.
+
+## My Thoughts
+
+The important observation is that `encodedText` stores the matrix row by row, but the original text was written diagonally.
+
+So to decode:
+
+- compute the number of columns as `encodedText.length / rows`
+- treat the encoded string as a `rows x cols` matrix laid out row-major
+- reconstruct the original text by walking each diagonal starting from the top row:
+  - start at column `i`
+  - move down-right while staying inside the matrix
+
+That traversal exactly reverses the slanted write order used during encoding.
+
+At the end, trim trailing spaces, because the original text is guaranteed not to end with spaces.
+
+Time complexity: `O(n)` where `n = encodedText.length`  
+Space complexity: `O(n)` for the reconstructed string
+
+## What I Learned
+
+- Decoding problems often become simple once the underlying matrix layout is reconstructed.
+- Row-major storage plus diagonal traversal is the key inversion of this cipher.
+- Computing `cols = len / rows` is enough because the encoded text fully fills the matrix shape.
+- Trimming only the end is important here because internal spaces are valid original characters.
