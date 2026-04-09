@@ -1,6 +1,7 @@
 function isFizzBuzz(arr) {
     for (let i = 1; i <= arr.length; i++) {
         let expected;
+        console.log(i % 3, i % 5);
         if (i % 3 === 0 && i % 5 === 0) expected = "FizzBuzz";
         else if (i % 3 === 0) expected = "Fizz";
         else if (i % 5 === 0) expected = "Buzz";
