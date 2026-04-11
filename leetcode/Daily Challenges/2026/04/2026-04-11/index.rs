@@ -15,8 +15,6 @@ impl Solution {
             if idxs.len() < 3 {
                 continue;
             }
-            // For sorted indices a < b < c: |a-b|+|b-c|+|c-a| = 2*(c-a). Minimum span
-            // over triples of equal value is achieved by three consecutive occurrences.
             for w in idxs.windows(3) {
                 let dist = 2 * (w[2] - w[0]);
                 best = best.min(dist);
