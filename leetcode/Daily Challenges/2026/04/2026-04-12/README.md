@@ -38,3 +38,22 @@ Total distance = 6
 **Constraints:**
 - `2 <= word.length <= 300`
 - `word` consists of uppercase English letters.
+
+## My Thoughts
+
+This challenge branches at every character, so it naturally turns into dynamic programming. For each position in the word, I can either move the first finger to the next letter or move the second finger, and I want the cheaper of those two choices over the full word.
+
+The Rust solution handles that with DFS plus memoization. The state stores the current index and the positions of both fingers. If a finger has not been used yet, moving it to its first letter costs `0`, which matches the problem statement and keeps the transitions simple.
+
+One detail I liked here was normalizing the two finger positions before caching. Since the fingers are interchangeable in terms of total cost, that cuts down duplicate states and makes the memoization table more efficient.
+
+### Complexity
+
+- Time: `O(n * 26 * 26)`
+- Space: `O(n * 26 * 26)`
+
+## What I Learned
+
+This problem reinforced how useful memoization is when a decision tree keeps revisiting the same situations. The important state was not just the current index, but also where both fingers are resting.
+
+It was also a good reminder that symmetric state can often be normalized. When two values play the same role, canonicalizing them can reduce repeated work without changing the answer.
