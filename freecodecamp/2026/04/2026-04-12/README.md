@@ -19,3 +19,25 @@ For example, given:
 ```
 
 Return `[1, 2, 3, 6, 9, 8, 7, 4, 5]`.
+
+## My Thoughts
+
+This is a classic boundary-walking problem. Instead of trying to simulate every turn manually, the cleaner approach is to track four edges of the remaining matrix: `top`, `bottom`, `left`, and `right`.
+
+The JavaScript solution peels off one outer layer at a time:
+
+- move left to right across the top row
+- move top to bottom down the right column
+- if there is still a remaining bottom row, move right to left
+- if there is still a remaining left column, move bottom to top
+
+After each pass, the boundaries shrink inward and the process repeats until there are no cells left.
+
+Time complexity: `O(m * n)`  
+Space complexity: `O(m * n)` for the output array
+
+## What I Learned
+
+- Spiral traversal gets much easier when the problem is framed as shrinking boundaries instead of changing direction step by step.
+- The extra boundary checks before traversing the bottom row and left column matter for single-row or single-column leftovers.
+- Problems that read like movement simulations often become simpler once the state is reduced to a few indices.
