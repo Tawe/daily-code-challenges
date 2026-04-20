@@ -7,6 +7,7 @@ impl Solution {
         (n - reverse_num).abs()
     }
 }
+
 #[cfg(test)]
 mod tests {
     use super::*;
