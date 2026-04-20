@@ -2,30 +2,29 @@ package main
 
 import "fmt"
 
-func canVisitAllRooms(rooms [][]int) bool {
-	n := len(rooms)
-	visited := make([]bool, n)
-	stack := []int{0}
-	visited[0] = true
-	visitedCount := 1
+func findCircleNum(isConnected [][]int) int {
+    n := len(isConnected)
+    visited := make([]bool, n)
+    count := 0
+    for i := 0; i < n; i++ {
+        if !visited[i] {
+            dfs(isConnected, visited, i)
+            count++
+        }
+    }
+    return count
+}
 
-	for len(stack) > 0 {
-		room := stack[len(stack)-1]
-		stack = stack[:len(stack)-1]
-
-		for _, key := range rooms[room] {
-			if !visited[key] {
-				visited[key] = true
-				visitedCount++
-				stack = append(stack, key)
-			}
-		}
-	}
-
-	return visitedCount == n
+func dfs(isConnected [][]int, visited []bool, i int) {
+    visited[i] = true
+    for j := 0; j < len(isConnected[i]); j++ {
+        if isConnected[i][j] == 1 && !visited[j] {
+            dfs(isConnected, visited, j)
+        }
+    }
 }
 
 func main() {
-	fmt.Println(canVisitAllRooms([][]int{{1}, {2}, {3}, {}}))
-	fmt.Println(canVisitAllRooms([][]int{{1, 3}, {3, 0, 1}, {2}, {0}}))
+	fmt.Println(findCircleNum([][]int{{1, 1, 0}, {1, 1, 0}, {0, 0, 1}}))
+	fmt.Println(findCircleNum([][]int{{1, 0, 0}, {0, 1, 0}, {0, 0, 1}}))
 }
