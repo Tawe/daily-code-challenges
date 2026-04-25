@@ -40,3 +40,28 @@ Select the points `(0, 0)`, `(0, 1)`, `(0, 2)`, `(1, 2)`, and `(2, 2)`.
     - `points[i]` lies on the boundary of the square.
     - All `points[i]` are **unique**.
 - `4 <= k <= min(25, points.length)`
+
+## My Thoughts
+
+The key trick here is to stop thinking about the square as a 2D shape and instead unwrap its boundary into a 1D circular perimeter. Each boundary point can be mapped to a single position along that perimeter, which makes the selection problem much easier to reason about.
+
+The Rust solution does exactly that:
+
+- convert every boundary point into its perimeter offset
+- sort those offsets
+- duplicate the array with `+ perimeter` added to handle the circular wraparound
+
+From there, the answer is binary-searched. For a candidate minimum distance `d`, the helper checks whether it is possible to greedily pick `k` points so that each next chosen perimeter position is at least `d` farther than the previous one. A final wraparound check makes sure the first and last chosen points are also far enough apart around the circle.
+
+Because feasibility is monotonic, binary search works cleanly: if distance `d` is possible, then any smaller distance is also possible.
+
+### Complexity
+
+- Time: `O(n log side + n * k * log n)` in this implementation
+- Space: `O(n)`
+
+## What I Learned
+
+This challenge reinforced a really useful reduction: when points lie on the boundary of a shape, it can be better to linearize that boundary instead of working directly in 2D.
+
+It also highlighted the common "binary search on the answer" pattern. Once the problem becomes "can I pick `k` points with at least distance `d`?", the monotonic yes/no structure makes the optimization step much more manageable.
