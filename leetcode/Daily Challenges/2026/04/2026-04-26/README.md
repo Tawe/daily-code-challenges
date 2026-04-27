@@ -1,51 +1,67 @@
 # 2026-04-26
 
 ## Instructions
-You are given a 2D array of characters `grid` of size `m x n`, and you need to determine whether there exists any cycle made up of the same character.
+Given a 2D array of characters `grid` of size `m x n`, you need to find if there exists any cycle consisting of the **same value** in `grid`.
 
-A cycle is a path of length `4` or more in the grid that starts and ends at the same cell. From a given cell, you may move up, down, left, or right to an adjacent cell with the same value.
+A cycle is a path of **length 4 or more** in the grid that starts and ends at the same cell. From a given cell, you can move to one of the cells adjacent to it - in one of the four directions (up, down, left, or right), if it has the **same value** of the current cell.
 
-You are not allowed to immediately move back to the cell from your last step. For example, the path `(1,1) -> (1,2) -> (1,1)` is not a valid cycle.
+Also, you cannot move to the cell that you visited in your last move. For example, the cycle `(1, 1) -> (1, 2) -> (1, 1)` is invalid because from `(1, 2)` we visited `(1, 1)` which was the last visited cell.
 
-Return `true` if the grid contains a cycle, otherwise return `false`.
+Return `true` if any cycle of the same value exists in `grid`, otherwise, return `false`.
 
 **Example 1:**
+
+**![](https://assets.leetcode.com/uploads/2020/07/15/1.png)**
+
 **Input:** grid = [["a","a","a","a"],["a","b","b","a"],["a","b","b","a"],["a","a","a","a"]]
 **Output:** true
+**Explanation:** There are two valid cycles shown in different colors in the image below:
+![](https://assets.leetcode.com/uploads/2020/07/15/11.png)
 
 **Example 2:**
+**![](https://assets.leetcode.com/uploads/2020/07/15/22.png)**
 **Input:** grid = [["c","c","c","a"],["c","d","c","c"],["c","c","e","c"],["f","c","c","c"]]
 **Output:** true
+**Explanation:** There is only one valid cycle highlighted in the image below:
+![](https://assets.leetcode.com/uploads/2020/07/15/2.png)
 
 **Example 3:**
+**![](https://assets.leetcode.com/uploads/2020/07/15/3.png)**
 **Input:** grid = [["a","b","b"],["b","z","b"],["b","b","a"]]
 **Output:** false
 
 **Constraints:**
+
 - `m == grid.length`
 - `n == grid[i].length`
 - `1 <= m, n <= 500`
-- `grid` consists only of lowercase English letters.
+- `grid` consists only of lowercase English letters.
 
 ## My Thoughts
 
-This is a graph problem on a grid. Each cell is a node, and I only connect it to neighbors with the same character. A cycle exists if, during traversal, I reach another cell that is already part of the current DFS path and it is not just the parent I came from.
+The key observation is that this is a graph cycle problem on a grid, but edges only exist between adjacent cells with the same character.  
+So for each connected component (same letter), we need to detect whether a cycle exists.
 
-The Rust solution uses an iterative DFS instead of recursion. That avoids recursion-depth issues on larger grids and still gives the same cycle-detection behavior. Each cell has a small state:
+The Rust solution uses iterative DFS with explicit state coloring:
 
 - `0` = unvisited
-- `1` = currently in the DFS stack
+- `1` = currently in DFS stack (visiting)
 - `2` = fully processed
 
-For each unvisited starting cell, the search only follows neighbors with the same character. If it sees a neighbor in state `1` that is not the immediate parent, then a cycle has been found and the function returns `true`.
+For each unvisited cell, we start a DFS and only move to neighbors with the same value.  
+To avoid false cycles from immediately stepping back, each stack entry also tracks the parent cell and skips that one neighbor.  
+If we ever reach a neighbor that is already in state `1` (currently visiting) and it is not the parent, we found a cycle.
+
+Using an explicit stack instead of recursive DFS avoids recursion-depth issues on large grids.
 
 ### Complexity
 
-- Time: `O(m * n)`
-- Space: `O(m * n)`
+- Time: `O(m * n)` (each cell and edge is processed a constant number of times)
+- Space: `O(m * n)` (state grid + DFS stack in worst case)
 
 ## What I Learned
 
-This challenge reinforced a common cycle-detection pattern for undirected graphs: visiting an already-active node means a cycle, but the parent edge has to be ignored.
+This challenge reinforced a very common cycle-detection pattern: DFS with parent tracking in an undirected graph.  
+On grids, the "parent" check is essential, because every two-way edge can otherwise look like a cycle immediately.
 
-It was also a good reminder that iterative DFS can be a practical substitute for recursion when the input can be large. The explicit stack makes the traversal state a little more manual, but it keeps the solution safe for deep searches.
+It also reminded me that iterative DFS is often the safer default in grid problems with large constraints, especially in Rust where deep recursion can be risky.
