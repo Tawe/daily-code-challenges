@@ -4,7 +4,7 @@ impl Solution {
     pub fn contains_cycle(grid: Vec<Vec<char>>) -> bool {
         let m = grid.len();
         let n = grid[0].len();
-        let mut state = vec![vec![0_u8; n]; m]; // 0=unvisited, 1=visiting, 2=done
+        let mut state = vec![vec![0_u8; n]; m];
         let dirs: [(isize, isize); 4] = [(0, 1), (1, 0), (0, -1), (-1, 0)];
 
         for sr in 0..m {
@@ -24,7 +24,6 @@ impl Solution {
                         continue;
                     }
 
-                    // Put current node back with next direction to continue DFS.
                     stack.push((r, c, pr, pc, dir_idx + 1));
 
                     let (dr, dc) = dirs[dir_idx];
