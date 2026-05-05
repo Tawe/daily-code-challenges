@@ -1,13 +1,3 @@
-# Definition for singly-linked list.
-# class ListNode
-#   attr_accessor :val, :next
-#   def initialize(val = 0, _next = nil)
-#     @val = val
-#     @next = _next
-#   end
-# end
-
-# Local fallback so this file can be run outside LeetCode.
 unless defined?(ListNode)
   class ListNode
     attr_accessor :val, :next
@@ -19,13 +9,9 @@ unless defined?(ListNode)
   end
 end
 
-# @param {ListNode} head
-# @param {Integer} k
-# @return {ListNode}
 def rotate_right(head, k)
   return head if head.nil? || head.next.nil?
 
-  # Compute length and find the current tail.
   len = 1
   tail = head
   while tail.next
@@ -36,10 +22,8 @@ def rotate_right(head, k)
   k %= len
   return head if k == 0
 
-  # Make the list circular, then break at the new tail.
   tail.next = head
 
-  # New tail is (len - k - 1) steps from head.
   new_tail = head
   (len - k - 1).times { new_tail = new_tail.next }
 
