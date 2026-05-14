@@ -32,3 +32,57 @@ Return `true` _if the given array is good, otherwise return_ `false`.
 **Constraints:**
 - `1 <= nums.length <= 100`
 - `1 <= num[i] <= 200`
+
+## Solution
+
+Let `n` be the maximum value in `nums`.
+
+If `nums` is a permutation of:
+
+- `base[n] = [1, 2, ..., n - 1, n, n]`
+
+then a few things must be true immediately:
+
+- the array length must be `n + 1`
+- the value `n` must appear exactly twice
+- every value from `1` to `n - 1` must appear exactly once
+
+That gives a very direct validation strategy.
+
+### Key idea
+
+The maximum value determines the only possible candidate for `n`.
+
+Once we know that `n = nums.max`, there is only one target multiset that could work:
+
+- one copy of every integer from `1` to `n - 1`
+- two copies of `n`
+
+So the algorithm is:
+
+1. Set `n = nums.max`
+2. Check that `nums.length == n + 1`
+3. Count the frequency of every value
+4. Verify:
+   - `count[n] == 2`
+   - `count[i] == 1` for every `i` from `1` to `n - 1`
+
+If any check fails, the array is not good.
+
+### Why this works
+
+`base[n]` has a very strict structure.
+There is no flexibility beyond permutation:
+
+- the size is fixed
+- the maximum value must be repeated twice
+- all smaller values must appear once each
+
+So these frequency checks are both necessary and sufficient.
+
+### Complexity
+
+- Time: `O(m)`, where `m = nums.length`
+- Space: `O(m)` in the worst case for the frequency map
+
+With `nums.length <= 100`, this is easily within the limits.
