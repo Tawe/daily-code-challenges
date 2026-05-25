@@ -1,5 +1,4 @@
-
-# 2026-05-23
+# 2026-05-24
 
 ## Instructions
 Given an array of integers `arr` and an integer `d`. In one step you can jump from index `i` to index:
@@ -35,3 +34,55 @@ Similarly You cannot jump from index 3 to index 2 or index 1.
 - `1 <= arr.length <= 1000`
 - `1 <= arr[i] <= 105`
 - `1 <= d <= arr.length`
+
+## Solution
+
+Use DFS with memoization.
+
+For each index `i`, compute the maximum number of indices we can visit starting from `i`.
+Then take the maximum over all starting positions.
+
+### Key idea
+
+Define:
+
+- `dp[i]` = the best answer starting from index `i`
+
+From index `i`, we can try jumping:
+
+- to the right, up to distance `d`
+- to the left, up to distance `d`
+
+But a jump is only valid while:
+
+- `arr[j] < arr[i]`
+- and every value between `i` and `j` is also smaller than `arr[i]`
+
+That second rule means we must stop scanning in a direction as soon as we hit:
+
+- `arr[j] >= arr[i]`
+
+because any farther index in that direction would be blocked too.
+
+So the DFS transition is:
+
+- `dp[i] = 1 + max(dp[j])` over all valid jump targets `j`
+
+If there are no valid jumps, then `dp[i] = 1`.
+
+### Why this works
+
+Every valid path starting at `i` must make one valid first jump, or stop immediately.
+So the optimal answer from `i` is:
+
+- count `i` itself
+- plus the best answer from one valid next index
+
+Memoization makes sure each index is solved once, so repeated subproblems do not get recomputed.
+
+### Complexity
+
+- Time: `O(n * d)`
+- Space: `O(n)`
+
+With `n <= 1000`, this is efficient enough.
